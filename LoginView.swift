@@ -25,7 +25,7 @@ struct LoginView: View {
                 .textFieldStyle(.roundedBorder)
 
             if let error = auth.errorMessage {
-                Text(error).foregroundColor(.red)
+                Text(error).foregroundColor(.hotPink)
             }
 
             Button("Login") {
