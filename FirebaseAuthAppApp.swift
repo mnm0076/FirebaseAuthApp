@@ -4,7 +4,6 @@
 //
 //  Created by Meghan Murphy on 7/27/25.
 //
-
 import SwiftUI
 import FirebaseCore
 
@@ -17,13 +16,8 @@ struct FirebaseAuthAppApp: App {
             RootView()
                 .environmentObject(authViewModel)
                 .task {
-                    do {
-                        try await FirebaseApp.configure()
-                        // Now tell the view model Firebase is ready
-                        await authViewModel.checkLoginStatus()
-                    } catch {
-                        print("Firebase failed to configure: \(error)")
-                    }
+                    FirebaseApp.configure()
+                    authViewModel.checkLoginStatus()
                 }
         }
     }
