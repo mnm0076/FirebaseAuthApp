@@ -9,22 +9,28 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var auth: AuthViewModel
-
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
                 Text("Welcome!")
-                    .font(.title)
-
-                NavigationLink("Play Tic-Tac-Toe") {
-                    TicTacToeView()
+                    .padding()
+                    .foregroundColor(.hotPink)
+                    .font(.largeTitle)
+                    
+                    
+                    NavigationLink("Play Tic-Tac-Toe") {
+                        TicTacToeView()
+                    }
+                    .foregroundColor(.hotPink)
+                    
+                    Button("Logout :(") {
+                        auth.logout()
+                    }
+                    .foregroundColor(.black)
                 }
-
-                Button("Logout") {
-                    auth.logout()
-                }
+                .padding()
             }
-            .padding()
         }
     }
-}
+
