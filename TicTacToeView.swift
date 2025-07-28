@@ -31,7 +31,7 @@ struct TicTacToeView: View {
             
             
 
-                Text("You: \(userWins)   App: \(appWins)   Draws: \(draws)")
+                Text("You: \(userWins)   Bot: \(appWins)   Draws: \(draws)")
                     .font(.subheadline)
                     .padding(.bottom)
                     .foregroundColor(.hotPink)
@@ -50,7 +50,7 @@ struct TicTacToeView: View {
 
                         Text(board[i])
                             .font(.system(size: 40, weight: .bold))
-                            .foregroundColor(board[i] == "X" ? .black : .hotPink)
+                            .foregroundColor(board[i] == "X" ? .purple : .hotPink)
                     }
                     .onTapGesture {
                         handleTap(at: i)
