@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+extension Color {
+    static let hotPink = Color(red: 1.0, green: 0.2, blue: 0.6)
+}
+
 struct TicTacToeView: View {
     @State private var board: [String] = Array(repeating: "", count: 9)
     @State private var isUserTurn = true
@@ -20,23 +24,31 @@ struct TicTacToeView: View {
         VStack {
             Text("Tic Tac Toe")
                 .font(.largeTitle)
+                .foregroundColor(.hotPink)
+                .fontWeight(.bold)
             
             
 
                 Text("You: \(userWins)   App: \(appWins)   Draws: \(draws)")
                     .font(.subheadline)
                     .padding(.bottom)
+                    .foregroundColor(.hotPink)
 
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 15) {
                 ForEach(0..<9) { i in
                     ZStack {
                         Rectangle()
                             .frame(width: 80, height: 80)
-                            .foregroundColor(.gray.opacity(0.2))
-                            .cornerRadius(8)
+                            .foregroundColor(Color.hotPink.opacity(0.15))
+                            .cornerRadius(12)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.hotPink, lineWidth: 2)
+                            )
 
                         Text(board[i])
                             .font(.system(size: 40, weight: .bold))
+                            .foregroundColor(board[i] == "X" ? .black : .hotPink)
                     }
                     .onTapGesture {
                         handleTap(at: i)
@@ -46,7 +58,7 @@ struct TicTacToeView: View {
 
             if !gameOverMessage.isEmpty {
                 Text(gameOverMessage)
-                    .foregroundColor(.red)
+                    .foregroundColor(.hotPink)
                     .padding()
                 Button("Play Again") {
                     resetBoard()
@@ -63,7 +75,7 @@ struct TicTacToeView: View {
 
         if checkWin("O") {
             userWins += 1
-            gameOverMessage = "You win!"
+            gameOverMessage = "You beat the bot!"
             return
         } else if board.allSatisfy({ $0 != "" }) {
             draws += 1
@@ -132,7 +144,7 @@ struct TicTacToeView: View {
     func finishMove() {
         if checkWin("X") {
             appWins += 1
-            gameOverMessage = "App wins!"
+            gameOverMessage = "I win! Better luck next time!"
         } else if board.allSatisfy({ $0 != "" }) {
             draws += 1
             gameOverMessage = "It's a draw!"
